@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vy Truong — Software Development Student</title>
 <meta name="description" content="Vy Truong — second-year Bachelor of IT (Software Development) student at Griffith University, Brisbane. Portfolio of projects in JavaScript, SQL and Python. Open to internship and placement opportunities.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='43' font-family='Arial, sans-serif' font-size='26' font-weight='700' fill='%23ffb238' text-anchor='middle'%3Evy%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Vy Truong — Software Development Student">
+<meta property="og:description" content="Second-year Bachelor of IT (Software Development) student at Griffith University, Brisbane. Open to internship and placement opportunities.">
+<meta property="og:image" content="https://vy-trg.github.io/vy-trg-portfolio/Portfolio.png">
+<meta property="og:url" content="https://vy-trg.github.io/vy-trg-portfolio/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vy Truong — Software Development Student">
+<meta name="twitter:description" content="Second-year Bachelor of IT (Software Development) student at Griffith University, Brisbane.">
+<meta name="twitter:image" content="https://vy-trg.github.io/vy-trg-portfolio/Portfolio.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -412,6 +422,7 @@
     font-size:12px;
     color:var(--muted);
   }
+  .proj-links{display:flex;gap:16px;flex-wrap:wrap;}
   .proj-link{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
@@ -420,7 +431,37 @@
     align-items:center;
     gap:6px;
   }
+  .proj-link.secondary{color:var(--teal);}
   .proj-link:hover{text-decoration:underline;}
+
+  .to-top{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--amber);
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s, border-color .15s, transform .15s;
+    z-index:50;
+  }
+  .to-top.show{opacity:1;pointer-events:auto;}
+  .to-top:hover{border-color:var(--amber);transform:translateY(-2px);}
+
+  @keyframes introUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  .hero .badge{animation:introUp .6s ease both;}
+  .hero h1{animation:introUp .6s ease .12s both;}
+  .hero p.lede{animation:introUp .6s ease .24s both;}
+  .hero .cta-row{animation:introUp .6s ease .36s both;}
 
   /* experience */
   .exp-item{
@@ -580,11 +621,6 @@
   <p>I'm currently in my second year of a <strong>Bachelor of Information Technology (Software Development)</strong> at Griffith University in Brisbane, graduating late 2027. Most of what I know so far comes from building — turning coursework into real, working projects rather than just finishing assignments.</p>
   <p>I've picked up hands-on experience with <strong>JavaScript applications, SQL and database design, and data visualisation</strong> through university projects, and I'm actively looking for an internship, Work Integrated Learning placement, or student-friendly role in software, QA, data, or IT support.</p>
   <p>Outside of code, I work casual hospitality shifts and go to as many Brisbane tech meetups as I can fit in — I write about what I learn (and what confuses me) on LinkedIn afterwards.</p>
-  <div class="gh-stats" id="ghStats">
-    <div><span class="gh-stat-num" id="ghRepos">—</span><span class="gh-stat-label">public repos</span></div>
-    <div><span class="gh-stat-num" id="ghStars">—</span><span class="gh-stat-label">stars earned</span></div>
-    <div><span class="gh-stat-num" id="ghFollowers">—</span><span class="gh-stat-label">followers</span></div>
-  </div>
 </section>
 
 <section id="skills">
@@ -660,7 +696,10 @@
           <span class="proj-tag">p5.js</span>
           <span class="proj-tag">GeoJSON</span>
         </div>
-        <a class="proj-link" href="https://github.com/vy-trg/qld-railway-map" target="_blank" rel="noopener">View on GitHub ↗</a>
+        <div class="proj-links">
+          <a class="proj-link" href="https://vy-trg.github.io/qld-railway-map/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="proj-link secondary" href="https://github.com/vy-trg/qld-railway-map" target="_blank" rel="noopener">View code ↗</a>
+        </div>
       </div>
     </div>
 
@@ -677,7 +716,10 @@
           <span class="proj-tag">CSS</span>
           <span class="proj-tag">JavaScript</span>
         </div>
-        <a class="proj-link" href="https://github.com/vy-trg/energycheck" target="_blank" rel="noopener">View on GitHub ↗</a>
+        <div class="proj-links">
+          <a class="proj-link" href="https://vy-trg.github.io/energycheck/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="proj-link secondary" href="https://github.com/vy-trg/energycheck" target="_blank" rel="noopener">View code ↗</a>
+        </div>
       </div>
     </div>
 
@@ -711,7 +753,10 @@
           <span class="proj-tag">p5.js</span>
           <span class="proj-tag">p5.play</span>
         </div>
-        <a class="proj-link" href="https://github.com/vy-trg/space-shooter-game" target="_blank" rel="noopener">View on GitHub ↗</a>
+        <div class="proj-links">
+          <a class="proj-link" href="https://vy-trg.github.io/space-shooter-game/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="proj-link secondary" href="https://github.com/vy-trg/space-shooter-game" target="_blank" rel="noopener">View code ↗</a>
+        </div>
       </div>
     </div>
 
@@ -821,7 +866,15 @@
   </div>
 </footer>
 
+<button class="to-top" id="toTopBtn" aria-label="Back to top">↑</button>
+
 <script>
+  const toTopBtn = document.getElementById('toTopBtn');
+  window.addEventListener('scroll', () => {
+    toTopBtn.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+  toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
   const stops = document.querySelectorAll('.stop');
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-menu a[href^="#"]');
@@ -885,24 +938,6 @@
     });
   });
   clearFilterBtn.addEventListener('click', () => applyFilter(null));
-
-  fetch('https://api.github.com/users/vy-trg')
-    .then(res => res.ok ? res.json() : null)
-    .then(data => {
-      if (!data) return;
-      document.getElementById('ghRepos').textContent = data.public_repos ?? '—';
-      document.getElementById('ghFollowers').textContent = data.followers ?? '—';
-    })
-    .catch(() => {});
-
-  fetch('https://api.github.com/users/vy-trg/repos?per_page=100')
-    .then(res => res.ok ? res.json() : null)
-    .then(repos => {
-      if (!Array.isArray(repos)) return;
-      const stars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
-      document.getElementById('ghStars').textContent = stars;
-    })
-    .catch(() => {});
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduceMotion){
