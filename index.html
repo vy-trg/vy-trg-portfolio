@@ -29,6 +29,19 @@
     --text:#edeff5;
     --muted:#8b93a8;
     --radius:10px;
+    --header-bg:rgba(11,18,32,0.85);
+  }
+
+  html[data-theme="light"]{
+    --bg:#eef1f6;
+    --bg-alt:#e4e9f1;
+    --card:#ffffff;
+    --line:#d7dce6;
+    --amber:#a3620a;
+    --teal:#0d9488;
+    --text:#111827;
+    --muted:#5b6478;
+    --header-bg:rgba(238,241,246,0.85);
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -75,7 +88,7 @@
     top:0;
     z-index:40;
     backdrop-filter:blur(10px);
-    background:rgba(11,18,32,0.85);
+    background:var(--header-bg);
     border-bottom:1px solid var(--line);
   }
   .nav{
@@ -465,6 +478,32 @@
   .hero .cta-row{animation:introUp .6s ease .36s both;}
 
   /* experience */
+  .also-built{margin-top:32px;padding-top:28px;border-top:1px solid var(--line);}
+  .also-built-title{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
+  .also-built-list{display:flex;flex-direction:column;}
+  .also-built-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    transition:padding-left .15s;
+  }
+  .also-built-item:last-child{border-bottom:none;}
+  .also-built-item:hover{padding-left:6px;}
+  .also-built-name{font-size:14.5px;color:var(--text);}
+  .also-built-tech{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap;}
+  .also-built-item:hover .also-built-name{color:var(--amber);}
+
+  /* experience */
   .exp-item{
     padding:20px 0;
     border-bottom:1px solid var(--line);
@@ -767,6 +806,20 @@
       </div>
     </div>
 
+  </div>
+
+  <div class="also-built">
+    <div class="also-built-title">Also built</div>
+    <div class="also-built-list">
+      <a class="also-built-item" href="https://github.com/vy-trg/python-data-analysis" target="_blank" rel="noopener">
+        <span class="also-built-name">Python Data Analysis — education savings model &amp; rainfall analysis</span>
+        <span class="also-built-tech">Python · matplotlib</span>
+      </a>
+      <a class="also-built-item" href="https://github.com/vy-trg/rest-countries-api-with-color-theme-switcher-master" target="_blank" rel="noopener">
+        <span class="also-built-name">REST Countries API App — Frontend Mentor challenge</span>
+        <span class="also-built-tech">JavaScript · HTML · CSS</span>
+      </a>
+    </div>
   </div>
 </section>
 
