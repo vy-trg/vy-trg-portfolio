@@ -101,7 +101,24 @@
     white-space:nowrap;
   }
   .nav-cta:hover{background:var(--amber);color:#241a05;}
-  .nav-menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:8px 10px;font-size:18px;}
+  .nav-menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:8px 10px;font-size:18px;line-height:1;cursor:pointer;}
+  .mobile-menu{
+    display:none;
+    flex-direction:column;
+    gap:2px;
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px 16px;
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    padding:10px 0;
+    font-size:15px;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-menu a:last-child{border-bottom:none;}
 
   @media (max-width:720px){
     .nav-links{display:none;}
@@ -156,6 +173,32 @@
 
   /* hero */
   .hero{padding-top:56px;padding-bottom:70px;}
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 220px;
+    gap:40px;
+    align-items:start;
+  }
+  .hero-photo{
+    width:220px;
+    height:220px;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 0 0 4px rgba(94,234,212,0.06);
+    flex-shrink:0;
+  }
+  .hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:grayscale(15%);
+  }
+  @media (max-width:720px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-photo{width:140px;height:140px;order:-1;margin-bottom:8px;}
+  }
   .badge{
     display:inline-flex;
     align-items:center;
@@ -259,12 +302,37 @@
     background:var(--card);
     border:1px solid var(--line);
     border-radius:12px;
-    padding:24px;
+    overflow:hidden;
     display:flex;
     flex-direction:column;
     transition:border-color .2s, transform .2s;
   }
   .proj-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+  .proj-thumb{
+    width:100%;
+    aspect-ratio:16/9;
+    background:var(--bg-alt);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .proj-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .proj-thumb.placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:repeating-linear-gradient(135deg, var(--bg-alt), var(--bg-alt) 10px, var(--card) 10px, var(--card) 20px);
+  }
+  .proj-body{
+    padding:22px 24px 24px;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+  }
   .proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
   .proj-card h3{font-size:18px;}
   .proj-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap;padding-top:4px;}
@@ -388,20 +456,35 @@
       <a href="#now">Now</a>
     </nav>
     <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#now">Now</a>
+  </nav>
 </header>
 
 <div class="route" id="top">
 
 <section id="hero" class="hero">
   <div class="stop active"></div>
-  <span class="badge"><span class="badge-dot"></span>Brisbane, QLD — open to internship &amp; placement roles</span>
-  <h1>Second-year developer,<br>still <em>building</em> the route.</h1>
-  <p class="lede">I'm Vy — a Bachelor of IT (Software Development) student at Griffith University. I build things in JavaScript, SQL and Python, and I'm looking for an internship or student-friendly role where I can keep learning by shipping real work.</p>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="mailto:vivian.trg3@gmail.com">Email me</a>
-    <a class="btn btn-ghost" href="https://github.com/vy-trg" target="_blank" rel="noopener">GitHub ↗</a>
-    <a class="btn btn-ghost" href="https://www.linkedin.com/in/vy-trg" target="_blank" rel="noopener">LinkedIn ↗</a>
+  <div class="hero-grid">
+    <div>
+      <span class="badge"><span class="badge-dot"></span>Brisbane, QLD — open to internship &amp; placement roles</span>
+      <h1>Second-year developer,<br>still <em>building</em> the route.</h1>
+      <p class="lede">I'm Vy — a Bachelor of IT (Software Development) student at Griffith University. I build things in JavaScript, SQL and Python, and I'm looking for an internship or student-friendly role where I can keep learning by shipping real work.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:vivian.trg3@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://github.com/vy-trg" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/vy-trg" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="portfolio.jpg" alt="Portrait of Vy Truong">
+    </div>
   </div>
   <svg class="track-line" viewBox="0 0 520 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <line id="track" x1="6" y1="22" x2="514" y2="22" stroke="#26314c" stroke-width="2"/>
@@ -480,59 +563,71 @@
   <div class="proj-grid">
 
     <div class="proj-card">
-      <div class="proj-top">
-        <h3>Queensland Railway Interactive Map</h3>
-        <span class="proj-year">2025</span>
+      <div class="proj-thumb"><img src="assets/railway-map.jpg" alt="Queensland Railway Interactive Map screenshot"></div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <h3>Queensland Railway Interactive Map</h3>
+          <span class="proj-year">2025</span>
+        </div>
+        <p>An interactive map built from real Queensland railway station data (GeoJSON), with hover tooltips showing station name, coordinates and operational status. Multiple train routes render in distinct colours with geographically accurate coordinate scaling over a real background map.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">JavaScript</span>
+          <span class="proj-tag">p5.js</span>
+          <span class="proj-tag">GeoJSON</span>
+        </div>
+        <a class="proj-link" href="https://github.com/vy-trg/qld-railway-map" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
-      <p>An interactive map built from real Queensland railway station data (GeoJSON), with hover tooltips showing station name, coordinates and operational status. Multiple train routes render in distinct colours with geographically accurate coordinate scaling over a real background map.</p>
-      <div class="proj-tags">
-        <span class="proj-tag">JavaScript</span>
-        <span class="proj-tag">p5.js</span>
-        <span class="proj-tag">GeoJSON</span>
-      </div>
-      <a class="proj-link" href="https://github.com/vy-trg/qld-railway-map" target="_blank" rel="noopener">View on GitHub ↗</a>
     </div>
 
     <div class="proj-card">
-      <div class="proj-top">
-        <h3>EnergyCheck</h3>
-        <span class="proj-year">2026</span>
+      <div class="proj-thumb"><img src="assets/energycheck.jpg" alt="EnergyCheck website screenshot"></div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <h3>EnergyCheck</h3>
+          <span class="proj-year">2026</span>
+        </div>
+        <p>A 10-page responsive website for Australian renters, built with a team of five through the full Design Thinking process — from empathy research to user testing. I built the shared stylesheet using CSS custom properties, a responsive grid, and dark mode support.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML</span>
+          <span class="proj-tag">CSS</span>
+          <span class="proj-tag">JavaScript</span>
+        </div>
+        <a class="proj-link" href="https://github.com/vy-trg/energycheck" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
-      <p>A 10-page responsive website for Australian renters, built with a team of five through the full Design Thinking process — from empathy research to user testing. I built the shared stylesheet using CSS custom properties, a responsive grid, and dark mode support.</p>
-      <div class="proj-tags">
-        <span class="proj-tag">HTML</span>
-        <span class="proj-tag">CSS</span>
-        <span class="proj-tag">JavaScript</span>
-      </div>
-      <a class="proj-link" href="https://github.com/vy-trg/energycheck" target="_blank" rel="noopener">View on GitHub ↗</a>
     </div>
 
     <div class="proj-card">
-      <div class="proj-top">
-        <h3>Kakadu Kitchen Database System</h3>
-        <span class="proj-year">2025</span>
+      <div class="proj-thumb"><img src="assets/kakadu-erd.jpg" alt="Kakadu Kitchen database ERD diagram"></div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <h3>Kakadu Kitchen Database System</h3>
+          <span class="proj-year">2025</span>
+        </div>
+        <p>A relational database implemented from an ER diagram — tables with primary and foreign keys, structured business data, and eight analytical SQL queries using joins, aggregations and subqueries.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">SQL</span>
+          <span class="proj-tag">MySQL</span>
+          <span class="proj-tag">ERD</span>
+        </div>
+        <a class="proj-link" href="https://github.com/vy-trg/kakadu-kitchen-database" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
-      <p>A relational database implemented from an ER diagram — tables with primary and foreign keys, structured business data, and eight analytical SQL queries using joins, aggregations and subqueries.</p>
-      <div class="proj-tags">
-        <span class="proj-tag">SQL</span>
-        <span class="proj-tag">MySQL</span>
-        <span class="proj-tag">ERD</span>
-      </div>
-      <a class="proj-link" href="https://github.com/vy-trg/kakadu-kitchen-database" target="_blank" rel="noopener">View on GitHub ↗</a>
     </div>
 
     <div class="proj-card">
-      <div class="proj-top">
-        <h3>Space Shooter Game</h3>
-        <span class="proj-year">2025</span>
+      <div class="proj-thumb"><img src="assets/space-shooter.jpg" alt="Space Shooter Game screenshot"></div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <h3>Space Shooter Game</h3>
+          <span class="proj-year">2025</span>
+        </div>
+        <p>A browser-based game with four scenes, sprite collision detection, keyboard controls, sound, video, GUI text input, and a JSON-driven leaderboard to manage user interaction and game state.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">JavaScript</span>
+          <span class="proj-tag">p5.js</span>
+          <span class="proj-tag">p5.play</span>
+        </div>
+        <a class="proj-link" href="https://github.com/vy-trg/space-shooter-game" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
-      <p>A browser-based game with four scenes, sprite collision detection, keyboard controls, sound, video, GUI text input, and a JSON-driven leaderboard to manage user interaction and game state.</p>
-      <div class="proj-tags">
-        <span class="proj-tag">JavaScript</span>
-        <span class="proj-tag">p5.js</span>
-        <span class="proj-tag">p5.play</span>
-      </div>
-      <a class="proj-link" href="https://github.com/vy-trg/space-shooter-game" target="_blank" rel="noopener">View on GitHub ↗</a>
     </div>
 
   </div>
@@ -657,7 +752,22 @@
 
   sections.forEach(sec => observer.observe(sec));
 
-  const menuBtn = document.querySelector('.nav-menu-btn');
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+    menuBtn.textContent = isOpen ? '✕' : '☰';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = '☰';
+    });
+  });
 </script>
 
 </body>
