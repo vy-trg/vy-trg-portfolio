@@ -320,7 +320,9 @@
     height:100%;
     object-fit:cover;
     display:block;
+    transition:transform .4s ease;
   }
+  .proj-card:hover .proj-thumb img{transform:scale(1.06);}
   .proj-thumb.placeholder{
     display:flex;
     align-items:center;
@@ -338,6 +340,23 @@
   .proj-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap;padding-top:4px;}
   .proj-card p{color:var(--muted);font-size:14.5px;margin-bottom:16px;flex-grow:1;}
   .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+  .nav-links a.active{color:var(--amber);}
+  .mobile-menu a.active{color:var(--amber);}
+
+  .train-marker{
+    position:absolute;
+    left:28px;
+    transform:translate(-50%, 0);
+    width:16px;
+    height:16px;
+    z-index:5;
+    pointer-events:none;
+    transition:top .1s linear;
+  }
+  @media (max-width:720px){
+    .train-marker{left:16px;}
+  }
+
   .proj-tag{
     font-family:'IBM Plex Mono',monospace;
     font-size:11.5px;
@@ -346,6 +365,52 @@
     border:1px solid rgba(94,234,212,0.2);
     padding:3px 8px;
     border-radius:4px;
+    cursor:pointer;
+    transition:background .15s, border-color .15s;
+  }
+  .proj-tag:hover{border-color:var(--teal);}
+  .proj-tag.tag-active{background:var(--teal);border-color:var(--teal);color:#04342c;}
+  .proj-card.dimmed{opacity:0.35;}
+  .filter-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    margin-bottom:16px;
+    display:none;
+    align-items:center;
+    gap:10px;
+  }
+  .filter-note.show{display:flex;}
+  .filter-note button{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--amber);
+    background:none;
+    border:1px solid rgba(255,178,56,0.3);
+    padding:3px 9px;
+    border-radius:5px;
+    cursor:pointer;
+  }
+
+  .gh-stats{
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-top:22px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+  }
+  .gh-stat-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--amber);
+    display:block;
+  }
+  .gh-stat-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
   }
   .proj-link{
     font-family:'IBM Plex Mono',monospace;
@@ -472,6 +537,12 @@
 </header>
 
 <div class="route" id="top">
+<svg class="train-marker" id="trainMarker" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="top:70px;">
+  <circle cx="12" cy="12" r="10" fill="#0b1220" stroke="#ffb238" stroke-width="2"/>
+  <rect x="7" y="8" width="10" height="7" rx="1.5" fill="#ffb238"/>
+  <circle cx="9" cy="16" r="1.3" fill="#ffb238"/>
+  <circle cx="15" cy="16" r="1.3" fill="#ffb238"/>
+</svg>
 
 <section id="hero" class="hero">
   <div class="stop active"></div>
@@ -509,6 +580,11 @@
   <p>I'm currently in my second year of a <strong>Bachelor of Information Technology (Software Development)</strong> at Griffith University in Brisbane, graduating late 2027. Most of what I know so far comes from building — turning coursework into real, working projects rather than just finishing assignments.</p>
   <p>I've picked up hands-on experience with <strong>JavaScript applications, SQL and database design, and data visualisation</strong> through university projects, and I'm actively looking for an internship, Work Integrated Learning placement, or student-friendly role in software, QA, data, or IT support.</p>
   <p>Outside of code, I work casual hospitality shifts and go to as many Brisbane tech meetups as I can fit in — I write about what I learn (and what confuses me) on LinkedIn afterwards.</p>
+  <div class="gh-stats" id="ghStats">
+    <div><span class="gh-stat-num" id="ghRepos">—</span><span class="gh-stat-label">public repos</span></div>
+    <div><span class="gh-stat-num" id="ghStars">—</span><span class="gh-stat-label">stars earned</span></div>
+    <div><span class="gh-stat-num" id="ghFollowers">—</span><span class="gh-stat-label">followers</span></div>
+  </div>
 </section>
 
 <section id="skills">
@@ -565,7 +641,11 @@
     <span class="eyebrow">03 — projects</span>
     <h2>Selected projects</h2>
   </div>
-  <div class="proj-grid">
+  <div class="filter-note" id="filterNote">
+    <span>Filtering by <strong id="filterTagName"></strong></span>
+    <button id="clearFilter">Clear ✕</button>
+  </div>
+  <div class="proj-grid" id="projGrid">
 
     <div class="proj-card">
       <div class="proj-thumb"><img src="vy-trg.github.io_qld-railway-map_.png" alt="Queensland Railway Interactive Map screenshot"></div>
@@ -744,6 +824,7 @@
 <script>
   const stops = document.querySelectorAll('.stop');
   const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-menu a[href^="#"]');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -751,11 +832,77 @@
       if (entry.isIntersecting) {
         stops.forEach(s => s.classList.remove('active'));
         stops[idx].classList.add('active');
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
       }
     });
   }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
 
   sections.forEach(sec => observer.observe(sec));
+
+  const routeEl = document.querySelector('.route');
+  const trainMarker = document.getElementById('trainMarker');
+  function updateTrain(){
+    const rect = routeEl.getBoundingClientRect();
+    const viewportMid = window.innerHeight * 0.45;
+    const progressPx = Math.min(Math.max(viewportMid - rect.top, 0), rect.height);
+    trainMarker.style.top = progressPx + 'px';
+  }
+  window.addEventListener('scroll', updateTrain, { passive: true });
+  window.addEventListener('resize', updateTrain);
+  updateTrain();
+
+  const projTags = document.querySelectorAll('.proj-tag');
+  const projCards = document.querySelectorAll('.proj-card');
+  const filterNote = document.getElementById('filterNote');
+  const filterTagName = document.getElementById('filterTagName');
+  const clearFilterBtn = document.getElementById('clearFilter');
+  let activeTag = null;
+
+  function applyFilter(tag){
+    activeTag = tag;
+    if (!tag) {
+      projCards.forEach(c => c.classList.remove('dimmed'));
+      projTags.forEach(t => t.classList.remove('tag-active'));
+      filterNote.classList.remove('show');
+      return;
+    }
+    filterNote.classList.add('show');
+    filterTagName.textContent = tag;
+    projTags.forEach(t => t.classList.toggle('tag-active', t.textContent.trim() === tag));
+    projCards.forEach(card => {
+      const tags = Array.from(card.querySelectorAll('.proj-tag')).map(t => t.textContent.trim());
+      card.classList.toggle('dimmed', !tags.includes(tag));
+    });
+  }
+
+  projTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const value = tag.textContent.trim();
+      applyFilter(activeTag === value ? null : value);
+    });
+  });
+  clearFilterBtn.addEventListener('click', () => applyFilter(null));
+
+  fetch('https://api.github.com/users/vy-trg')
+    .then(res => res.ok ? res.json() : null)
+    .then(data => {
+      if (!data) return;
+      document.getElementById('ghRepos').textContent = data.public_repos ?? '—';
+      document.getElementById('ghFollowers').textContent = data.followers ?? '—';
+    })
+    .catch(() => {});
+
+  fetch('https://api.github.com/users/vy-trg/repos?per_page=100')
+    .then(res => res.ok ? res.json() : null)
+    .then(repos => {
+      if (!Array.isArray(repos)) return;
+      const stars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+      document.getElementById('ghStars').textContent = stars;
+    })
+    .catch(() => {});
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduceMotion){
