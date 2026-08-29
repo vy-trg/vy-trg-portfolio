@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vy Truong — Software Development Student</title>
+<meta name="description" content="Vy Truong — second-year Bachelor of IT (Software Development) student at Griffith University, Brisbane. Portfolio of projects in JavaScript, SQL and Python. Open to internship and placement opportunities.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1220;
+    --bg-alt:#101a2e;
+    --card:#131e35;
+    --line:#26314c;
+    --amber:#ffb238;
+    --teal:#5eead4;
+    --text:#edeff5;
+    --muted:#8b93a8;
+    --radius:10px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* nav */
+  header{
+    position:sticky;
+    top:0;
+    z-index:40;
+    backdrop-filter:blur(10px);
+    background:rgba(11,18,32,0.85);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:920px;
+    margin:0 auto;
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:17px;
+    color:var(--text);
+  }
+  .nav-logo span{color:var(--amber);}
+  .nav-links{
+    display:flex;
+    gap:26px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    padding:8px 14px;
+    border:1px solid var(--amber);
+    border-radius:6px;
+    color:var(--amber);
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--amber);color:#241a05;}
+  .nav-menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:8px 10px;font-size:18px;}
+
+  @media (max-width:720px){
+    .nav-links{display:none;}
+    .nav-menu-btn{display:block;}
+  }
+
+  /* route line */
+  .route{
+    position:relative;
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .route::before{
+    content:'';
+    position:absolute;
+    left:28px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:linear-gradient(to bottom, var(--line), var(--line));
+  }
+  section{
+    position:relative;
+    padding:88px 0 88px 46px;
+    border-bottom:none;
+  }
+  section:first-of-type{padding-top:70px;}
+  .stop{
+    position:absolute;
+    left:-4.5px;
+    top:96px;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--line);
+    transition:border-color .3s, background .3s, box-shadow .3s;
+  }
+  .stop.active{
+    border-color:var(--amber);
+    background:var(--amber);
+    box-shadow:0 0 0 4px rgba(255,178,56,0.15);
+  }
+  section:first-of-type .stop{top:78px;}
+
+  @media (max-width:720px){
+    .route::before{left:16px;}
+    section{padding-left:32px;}
+    .stop{left:-4.5px;}
+  }
+
+  /* hero */
+  .hero{padding-top:56px;padding-bottom:70px;}
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--teal);
+    border:1px solid rgba(94,234,212,0.35);
+    background:rgba(94,234,212,0.06);
+    padding:6px 12px;
+    border-radius:20px;
+    margin-bottom:26px;
+  }
+  .badge-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 0 3px rgba(94,234,212,0.2);
+  }
+  .hero h1{
+    font-size:clamp(34px,5vw,52px);
+    max-width:11.5ch;
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--amber);
+  }
+  .hero p.lede{
+    font-size:18px;
+    color:var(--muted);
+    max-width:56ch;
+    margin-bottom:32px;
+  }
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13.5px;
+    padding:11px 18px;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--line);
+    transition:border-color .15s, background .15s, transform .1s;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--amber);border-color:var(--amber);color:#241a05;font-weight:500;}
+  .btn-primary:hover{background:#ffc35e;}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--text);}
+
+  .track-line{
+    width:100%;
+    max-width:520px;
+    height:44px;
+  }
+
+  /* section heading */
+  .sec-head{margin-bottom:36px;}
+  .sec-head .eyebrow{margin-bottom:10px;display:block;}
+  .sec-head h2{font-size:28px;}
+
+  /* about */
+  #about p{color:var(--muted);max-width:64ch;font-size:16px;margin-bottom:16px;}
+  #about p strong{color:var(--text);font-weight:500;}
+
+  /* skills */
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px 28px;
+  }
+  @media (max-width:640px){.skill-grid{grid-template-columns:1fr;}}
+  .skill-group h3{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;
+    margin-bottom:12px;
+  }
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-size:13.5px;
+    padding:6px 12px;
+    border-radius:6px;
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--text);
+  }
+
+  /* projects */
+  .proj-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:680px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+  .proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
+  .proj-card h3{font-size:18px;}
+  .proj-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap;padding-top:4px;}
+  .proj-card p{color:var(--muted);font-size:14.5px;margin-bottom:16px;flex-grow:1;}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+  .proj-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--teal);
+    background:rgba(94,234,212,0.08);
+    border:1px solid rgba(94,234,212,0.2);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .proj-link{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--amber);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .proj-link:hover{text-decoration:underline;}
+
+  /* experience */
+  .exp-item{
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .exp-item:last-child{border-bottom:none;padding-bottom:0;}
+  .exp-item:first-child{padding-top:0;}
+  .exp-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:2px;}
+  .exp-role{font-size:16px;font-weight:500;font-family:'Space Grotesk',sans-serif;}
+  .exp-org{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);}
+  .exp-date{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--amber);margin-bottom:10px;display:block;}
+  .exp-item p{color:var(--muted);font-size:14.5px;max-width:60ch;}
+
+  /* education */
+  .edu-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .edu-card h3{font-size:17px;margin-bottom:4px;}
+  .edu-card p{color:var(--muted);font-size:14px;}
+  .edu-status{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    align-self:flex-start;
+    border:1px solid rgba(255,178,56,0.3);
+    padding:5px 10px;
+    border-radius:6px;
+    white-space:nowrap;
+  }
+
+  /* now */
+  .now-list{display:flex;flex-direction:column;gap:14px;}
+  .now-item{display:flex;gap:14px;align-items:flex-start;}
+  .now-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--teal);
+    margin-top:7px;
+    flex-shrink:0;
+  }
+  .now-item p{color:var(--muted);font-size:15px;}
+  .now-item p strong{color:var(--text);font-weight:500;}
+
+  /* contact */
+  #contact{padding-bottom:60px;}
+  .contact-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:44px 36px;
+    text-align:left;
+  }
+  .contact-card h2{font-size:27px;margin-bottom:12px;max-width:20ch;}
+  .contact-card p{color:var(--muted);max-width:52ch;margin-bottom:26px;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px 0 40px;
+  }
+  .footer-row{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .footer-row a{color:var(--muted);}
+  .footer-row a:hover{color:var(--text);}
+  .footer-links{display:flex;gap:18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="nav-logo">vy<span>.</span>dev</a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#now">Now</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</header>
+
+<div class="route" id="top">
+
+<section id="hero" class="hero">
+  <div class="stop active"></div>
+  <span class="badge"><span class="badge-dot"></span>Brisbane, QLD — open to internship &amp; placement roles</span>
+  <h1>Second-year developer,<br>still <em>building</em> the route.</h1>
+  <p class="lede">I'm Vy — a Bachelor of IT (Software Development) student at Griffith University. I build things in JavaScript, SQL and Python, and I'm looking for an internship or student-friendly role where I can keep learning by shipping real work.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:vivian.trg3@gmail.com">Email me</a>
+    <a class="btn btn-ghost" href="https://github.com/vy-trg" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="btn btn-ghost" href="https://www.linkedin.com/in/vy-trg" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+  <svg class="track-line" viewBox="0 0 520 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line id="track" x1="6" y1="22" x2="514" y2="22" stroke="#26314c" stroke-width="2"/>
+    <circle cx="6" cy="22" r="5" fill="#5eead4"/>
+    <circle cx="176" cy="22" r="5" fill="#26314c" stroke="#5eead4" stroke-width="1.5"/>
+    <circle cx="346" cy="22" r="5" fill="#26314c" stroke="#5eead4" stroke-width="1.5"/>
+    <circle cx="514" cy="22" r="6" fill="#ffb238"/>
+  </svg>
+</section>
+
+<section id="about">
+  <div class="stop"></div>
+  <div class="sec-head">
+    <span class="eyebrow">01 — about</span>
+    <h2>Where I'm at</h2>
+  </div>
+  <p>I'm currently in my second year of a <strong>Bachelor of Information Technology (Software Development)</strong> at Griffith University in Brisbane, graduating late 2027. Most of what I know so far comes from building — turning coursework into real, working projects rather than just finishing assignments.</p>
+  <p>I've picked up hands-on experience with <strong>JavaScript applications, SQL and database design, and data visualisation</strong> through university projects, and I'm actively looking for an internship, Work Integrated Learning placement, or student-friendly role in software, QA, data, or IT support.</p>
+  <p>Outside of code, I work casual hospitality shifts and go to as many Brisbane tech meetups as I can fit in — I write about what I learn (and what confuses me) on LinkedIn afterwards.</p>
+</section>
+
+<section id="skills">
+  <div class="stop"></div>
+  <div class="sec-head">
+    <span class="eyebrow">02 — skills</span>
+    <h2>What I work with</h2>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <div class="chip-row">
+        <span class="chip">JavaScript</span>
+        <span class="chip">SQL</span>
+        <span class="chip">Python</span>
+        <span class="chip">HTML</span>
+        <span class="chip">CSS</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Tools &amp; platforms</h3>
+      <div class="chip-row">
+        <span class="chip">Git / GitHub</span>
+        <span class="chip">MySQL</span>
+        <span class="chip">p5.js</span>
+        <span class="chip">VS Code</span>
+        <span class="chip">Microsoft 365</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Relevant areas</h3>
+      <div class="chip-row">
+        <span class="chip">Data visualisation</span>
+        <span class="chip">Database design</span>
+        <span class="chip">Responsive design</span>
+        <span class="chip">UX wireframing</span>
+        <span class="chip">Algorithms &amp; data structures</span>
+        <span class="chip">Agile</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Languages spoken</h3>
+      <div class="chip-row">
+        <span class="chip">English</span>
+        <span class="chip">Vietnamese (native)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="stop"></div>
+  <div class="sec-head">
+    <span class="eyebrow">03 — projects</span>
+    <h2>Selected projects</h2>
+  </div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <h3>Queensland Railway Interactive Map</h3>
+        <span class="proj-year">2025</span>
+      </div>
+      <p>An interactive map built from real Queensland railway station data (GeoJSON), with hover tooltips showing station name, coordinates and operational status. Multiple train routes render in distinct colours with geographically accurate coordinate scaling over a real background map.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">JavaScript</span>
+        <span class="proj-tag">p5.js</span>
+        <span class="proj-tag">GeoJSON</span>
+      </div>
+      <a class="proj-link" href="https://github.com/vy-trg/qld-railway-map" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <h3>EnergyCheck</h3>
+        <span class="proj-year">2026</span>
+      </div>
+      <p>A 10-page responsive website for Australian renters, built with a team of five through the full Design Thinking process — from empathy research to user testing. I built the shared stylesheet using CSS custom properties, a responsive grid, and dark mode support.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">HTML</span>
+        <span class="proj-tag">CSS</span>
+        <span class="proj-tag">JavaScript</span>
+      </div>
+      <a class="proj-link" href="https://github.com/vy-trg/energycheck" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <h3>Kakadu Kitchen Database System</h3>
+        <span class="proj-year">2025</span>
+      </div>
+      <p>A relational database implemented from an ER diagram — tables with primary and foreign keys, structured business data, and eight analytical SQL queries using joins, aggregations and subqueries.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">SQL</span>
+        <span class="proj-tag">MySQL</span>
+        <span class="proj-tag">ERD</span>
+      </div>
+      <a class="proj-link" href="https://github.com/vy-trg/kakadu-kitchen-database" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <h3>Space Shooter Game</h3>
+        <span class="proj-year">2025</span>
+      </div>
+      <p>A browser-based game with four scenes, sprite collision detection, keyboard controls, sound, video, GUI text input, and a JSON-driven leaderboard to manage user interaction and game state.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">JavaScript</span>
+        <span class="proj-tag">p5.js</span>
+        <span class="proj-tag">p5.play</span>
+      </div>
+      <a class="proj-link" href="https://github.com/vy-trg/space-shooter-game" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="stop"></div>
+  <div class="sec-head">
+    <span class="eyebrow">04 — experience</span>
+    <h2>Work experience</h2>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-top">
+      <span class="exp-role">Service Staff</span>
+      <span class="exp-org">Dadam Korean BBQ, Orion Shopping Centre, Brisbane QLD</span>
+    </div>
+    <span class="exp-date">March — April 2026</span>
+    <p>Coordinated with kitchen staff and monitored table equipment to help maintain smooth service operations, supporting customers with attention to speed, accuracy and teamwork.</p>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-top">
+      <span class="exp-role">Service Staff</span>
+      <span class="exp-org">Hikari Ramen, Orion Shopping Centre, Brisbane QLD</span>
+    </div>
+    <span class="exp-date">Jun 2025 — Present</span>
+    <p>Manage customer orders and payments accurately on POS systems in a high-volume environment, delivering fast and reliable service while maintaining accuracy under pressure.</p>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-top">
+      <span class="exp-role">Mathematics Tutor (freelance)</span>
+      <span class="exp-org">Da Nang City, Vietnam</span>
+    </div>
+    <span class="exp-date">May — Oct 2024</span>
+    <p>Provided 1:1 tutoring to students at different levels, adapting lesson plans to individual needs and tracking progress to improve understanding and outcomes.</p>
+  </div>
+
+</section>
+
+<section id="education">
+  <div class="stop"></div>
+  <div class="sec-head">
+    <span class="eyebrow">05 — education</span>
+    <h2>Education</h2>
+  </div>
+  <div class="edu-card">
+    <div>
+      <h3>Bachelor of Information Technology (Software Development)</h3>
+      <p>Griffith University, Brisbane</p>
+    </div>
+    <span class="edu-status">Expected end of 2027</span>
+  </div>
+</section>
+
+<section id="now">
+  <div class="stop"></div>
+  <div class="sec-head">
+    <span class="eyebrow">06 — now</span>
+    <h2>What I'm doing right now</h2>
+  </div>
+  <div class="now-list">
+    <div class="now-item">
+      <div class="now-dot"></div>
+      <p><strong>Applying widely</strong> — sending applications for graduate, internship and part-time IT roles across software, QA, data and support.</p>
+    </div>
+    <div class="now-item">
+      <div class="now-dot"></div>
+      <p><strong>Going to meetups</strong> — regularly attending Brisbane tech events (BrisJS, GDG Brisbane, WomenHack and others) to learn and build connections.</p>
+    </div>
+    <div class="now-item">
+      <div class="now-dot"></div>
+      <p><strong>Writing as I go</strong> — sharing honest, first-person recaps on LinkedIn after events, including the parts I didn't understand yet.</p>
+    </div>
+    <div class="now-item">
+      <div class="now-dot"></div>
+      <p><strong>Building toward the long break</strong> — using my November–February window to look for full-time internship or placement work.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="stop"></div>
+  <div class="contact-card">
+    <h2>Let's build something together.</h2>
+    <p>I'm actively looking for internship, WIL or student-friendly technical roles in Brisbane. If you're hiring, or just want to talk software, I'd love to hear from you.</p>
+    <div class="cta-row" style="margin-bottom:0;">
+      <a class="btn btn-primary" href="mailto:vivian.trg3@gmail.com">vivian.trg3@gmail.com</a>
+      <a class="btn btn-ghost" href="https://github.com/vy-trg" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/vy-trg" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="footer-row">
+    <span>© 2026 Vy Truong. Built by hand, one stop at a time.</span>
+    <div class="footer-links">
+      <a href="https://github.com/vy-trg" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/vy-trg" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:vivian.trg3@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const stops = document.querySelectorAll('.stop');
+  const sections = document.querySelectorAll('section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = Array.from(sections).indexOf(entry.target);
+      if (entry.isIntersecting) {
+        stops.forEach(s => s.classList.remove('active'));
+        stops[idx].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+
+  const menuBtn = document.querySelector('.nav-menu-btn');
+</script>
+
+</body>
+</html>
